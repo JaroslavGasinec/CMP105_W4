@@ -13,6 +13,10 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, Player* pl)
 	testSprite->setSize(sf::Vector2f(100, 100));
 	testSprite->setPosition(100, 100);
 
+	texture2.loadFromFile("gfx/goomba.png");
+	goomba->setTexture(&texture2);
+	goomba->setSize(sf::Vector2f(100, 100));
+	goomba->setPosition(200, 200);
 }
 
 Level::~Level()
@@ -36,6 +40,7 @@ void Level::update(float dt)
 {
 	windowSize = window->getSize();
 	testSprite->update(dt,windowSize);
+	goomba->update(dt, windowSize);
 }
 
 // Render level
@@ -45,6 +50,7 @@ void Level::render()
 
 
 	window->draw(*testSprite);
+	window->draw(*goomba);
 
 	endDraw();
 }
