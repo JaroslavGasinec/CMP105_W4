@@ -36,6 +36,12 @@ void Player::update(float dt, sf::Vector2u windowSize)
 	if (getPosition().y + delta.y > windowSize.y - getSize().y) {
 		delta.y = 0.0f;
 	}
+	if (getPosition().x + delta.x < 0) {
+		delta.x = 0.0f;
+	}
+	if (getPosition().y + delta.y < 0) {
+		delta.y = 0.0f;
+	}
 	this->setPosition(this->getPosition().x + delta.x, this->getPosition().y + delta.y);
-
+	direction = sf::Vector2i(0,0);
 }
