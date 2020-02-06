@@ -4,17 +4,20 @@
 #include "Framework/Input.h"
 #include "Framework/GameObject.h"
 #include <string.h>
+#include "Player.h"
 #include <iostream>
 
 
 class Level{
 public:
-	Level(sf::RenderWindow* hwnd, Input* in);
+	Level(sf::RenderWindow* hwnd, Input* in, Player* pl);
 	~Level();
 
 	void handleInput(float dt);
 	void update(float dt);
 	void render();
+
+	sf::Vector2u windowSize;
 
 private:
 	// Default functions for rendering to the screen.
@@ -26,7 +29,7 @@ private:
 	Input* input;
 
 	// Level objects
-	GameObject testSprite;
+	Player* testSprite;
 	sf::Texture texture;
 
 };
