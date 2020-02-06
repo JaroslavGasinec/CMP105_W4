@@ -32,7 +32,9 @@ private:
 	// Level objects
 	Player* testSprite;
 	Enemy* goomba = new Enemy;
+	Enemy* ball = new Enemy;
 	sf::Texture texture;
 	sf::Texture texture2;
+	sf::Texture texture3;
 
 };

@@ -8,7 +8,6 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, Player* pl)
 
 	// initialise game objects
 	texture.loadFromFile("gfx/Mushroom.png");
-
 	testSprite->setTexture(&texture);
 	testSprite->setSize(sf::Vector2f(100, 100));
 	testSprite->setPosition(100, 100);
@@ -17,6 +16,11 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, Player* pl)
 	goomba->setTexture(&texture2);
 	goomba->setSize(sf::Vector2f(100, 100));
 	goomba->setPosition(200, 200);
+
+	texture3.loadFromFile("gfx/Beach_Ball.png");
+	ball->setTexture(&texture3);
+	ball->setSize(sf::Vector2f(100, 100));
+	ball->setPosition(350, 500);
 }
 
 Level::~Level()
@@ -41,6 +45,7 @@ void Level::update(float dt)
 	windowSize = window->getSize();
 	testSprite->update(dt,windowSize);
 	goomba->update(dt, windowSize);
+	ball->update(dt, windowSize);
 }
 
 // Render level
@@ -51,6 +56,7 @@ void Level::render()
 
 	window->draw(*testSprite);
 	window->draw(*goomba);
+	window->draw(*ball);
 
 	endDraw();
 }
