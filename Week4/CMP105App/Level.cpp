@@ -1,10 +1,16 @@
 #include "Level.h"
 
-Level::Level(sf::RenderWindow* hwnd, Input* in, Player* pl)
+Level::Level(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
 	input = in;
-	testSprite = pl;
+	testSprite = new Player(window->getSize());
+	goomba = new Enemy(window->getSize());
+	ball = new Enemy(window->getSize());
+	cursor = new Cursor(window->getSize());
+
+	testSprite->setInput(in);
+	cursor->setInput(in);
 
 	// initialise game objects
 	texture.loadFromFile("gfx/Mushroom.png");
@@ -21,6 +27,10 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, Player* pl)
 	ball->setTexture(&texture3);
 	ball->setSize(sf::Vector2f(100, 100));
 	ball->setPosition(350, 500);
+
+	cursor->setSize(sf::Vector2f(100, 100));
+	cursor->setPosition(100, 100);
+
 }
 
 Level::~Level()
@@ -36,6 +46,7 @@ void Level::handleInput(float dt)
 	{
 		window->close();
 	}
+	
 	testSprite->handleInput(dt);
 }
 
@@ -43,9 +54,11 @@ void Level::handleInput(float dt)
 void Level::update(float dt)
 {
 	windowSize = window->getSize();
-	testSprite->update(dt,windowSize);
-	goomba->update(dt, windowSize);
-	ball->update(dt, windowSize);
+
+	testSprite->update(dt);
+	goomba->update(dt);
+	ball->update(dt);
+	cursor->update(dt);
 }
 
 // Render level
@@ -53,10 +66,10 @@ void Level::render()
 {
 	beginDraw();
 
-
 	window->draw(*testSprite);
 	window->draw(*goomba);
 	window->draw(*ball);
+	window->draw(*cursor);
 
 	endDraw();
 }
@@ -64,7 +77,7 @@ void Level::render()
 // clear back buffer
 void Level::beginDraw()
 {
-	window->clear(sf::Color(100, 149, 237));
+	window->clear(sf::Color(100, 100, 100));
 }
 
 // Ends rendering to the back buffer, and swaps buffer to the screen.

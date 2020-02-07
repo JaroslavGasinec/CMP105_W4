@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-void Enemy::update(float dt, sf::Vector2u windowSize)
+void Enemy::update(float dt)
 {
 	getPosition();
 	delta.x = dt * speed * direction.x;
@@ -29,3 +29,7 @@ void Enemy::update(float dt, sf::Vector2u windowSize)
 	setPosition(getPosition().x + delta.x, getPosition().y + delta.y);
 }
 
+Enemy::Enemy(sf::Vector2u windowSize)
+{
+	this->windowSize = windowSize;
+}

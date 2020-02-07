@@ -1,5 +1,10 @@
 #include "Player.h"
 
+Player::Player(sf::Vector2u windowSize)
+{
+	this->windowSize = windowSize;
+}
+
 void Player::handleInput(float dt)
 {
 	if (input->isKeyDown(sf::Keyboard::Up)) {
@@ -26,7 +31,7 @@ void Player::handleInput(float dt)
 	}
 }
 
-void Player::update(float dt, sf::Vector2u windowSize)
+void Player::update(float dt)
 {
 	delta.x = dt * speed * direction.x;
 	delta.y = dt * speed * direction.y;

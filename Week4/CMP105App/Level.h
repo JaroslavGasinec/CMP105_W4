@@ -6,12 +6,13 @@
 #include <string.h>
 #include "Player.h"
 #include "Enemy.h"
+#include "Cursor.h"
 #include <iostream>
 
 
 class Level{
 public:
-	Level(sf::RenderWindow* hwnd, Input* in, Player* pl);
+	Level(sf::RenderWindow* hwnd, Input* in);
 	~Level();
 
 	void handleInput(float dt);
@@ -30,9 +31,10 @@ private:
 	Input* input;
 
 	// Level objects
-	Player* testSprite;
-	Enemy* goomba = new Enemy;
-	Enemy* ball = new Enemy;
+	GameObject* testSprite;
+	GameObject* goomba;
+	GameObject* ball;
+	GameObject* cursor;
 	sf::Texture texture;
 	sf::Texture texture2;
 	sf::Texture texture3;
