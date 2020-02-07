@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Cursor.h"
+#include "Background.h"
 #include <iostream>
 
 
@@ -31,12 +32,16 @@ private:
 	Input* input;
 
 	// Level objects
+	float scrollSpeed = 1000.0f;
 	GameObject* testSprite;
 	GameObject* goomba;
 	GameObject* ball;
 	GameObject* cursor;
+	GameObject* background;
+	sf::View* view;
 	sf::Texture texture;
 	sf::Texture texture2;
 	sf::Texture texture3;
+	sf::Texture texture4;
 
 };

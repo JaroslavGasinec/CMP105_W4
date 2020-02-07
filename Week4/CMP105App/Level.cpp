@@ -8,6 +8,10 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	goomba = new Enemy(window->getSize());
 	ball = new Enemy(window->getSize());
 	cursor = new Cursor(window->getSize());
+	sf::View temp = window->getView();
+	window->setView(temp);
+	view = &temp;
+
 
 	testSprite->setInput(in);
 	cursor->setInput(in);
@@ -31,6 +35,8 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	cursor->setSize(sf::Vector2f(100, 100));
 	cursor->setPosition(100, 100);
 
+	texture4.loadFromFile("gfx/Level1_1.png");
+	background = new Background(texture4, sf::Vector2f(11038,675));
 }
 
 Level::~Level()
@@ -47,6 +53,13 @@ void Level::handleInput(float dt)
 		window->close();
 	}
 	
+	if (input->isKeyDown(sf::Keyboard::X)) 
+	{
+		view->move(scrollSpeed*dt,0);
+
+		input->setKeyUp(sf::Keyboard::X);
+	}
+
 	testSprite->handleInput(dt);
 }
 
@@ -66,6 +79,7 @@ void Level::render()
 {
 	beginDraw();
 
+	window->draw(*background);
 	window->draw(*testSprite);
 	window->draw(*goomba);
 	window->draw(*ball);
