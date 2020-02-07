@@ -4,14 +4,12 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
 	input = in;
-	testSprite = new Player(window->getSize());
-	goomba = new Enemy(window->getSize());
-	ball = new Enemy(window->getSize());
-	cursor = new Cursor(window->getSize());
-	sf::View temp = window->getView();
-	window->setView(temp);
-	view = &temp;
-
+	windowBoundaries = window->getSize();
+	testSprite = new Player(&windowBoundaries);
+	goomba = new Enemy(&windowBoundaries);
+	ball = new Enemy(&windowBoundaries);
+	cursor = new Cursor(&windowBoundaries);
+	
 
 	testSprite->setInput(in);
 	cursor->setInput(in);
@@ -55,7 +53,9 @@ void Level::handleInput(float dt)
 	
 	if (input->isKeyDown(sf::Keyboard::X)) 
 	{
-		view->move(scrollSpeed*dt,0);
+		view = window->getView();
+		view.move(scrollSpeed * dt, 0);
+		window->setView(view);
 
 		input->setKeyUp(sf::Keyboard::X);
 	}
@@ -66,8 +66,7 @@ void Level::handleInput(float dt)
 // Update game objects
 void Level::update(float dt)
 {
-	windowSize = window->getSize();
-
+	windowBoundaries = sf::Vector2u (view.getCenter().x - (window->getSize().x/2), view.getCenter().y - (window->getSize().y/2));
 	testSprite->update(dt);
 	goomba->update(dt);
 	ball->update(dt);
@@ -78,7 +77,8 @@ void Level::update(float dt)
 void Level::render()
 {
 	beginDraw();
-
+	
+	
 	window->draw(*background);
 	window->draw(*testSprite);
 	window->draw(*goomba);

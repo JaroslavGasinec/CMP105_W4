@@ -1,6 +1,6 @@
 #include "Cursor.h"
 
-Cursor::Cursor(sf::Vector2u windowSize)
+Cursor::Cursor(sf::Vector2u* windowSize)
 {
 	texture.loadFromFile("gfx/cursor.png");
 	setTexture(&texture);

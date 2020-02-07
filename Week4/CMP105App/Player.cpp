@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(sf::Vector2u windowSize)
+Player::Player(sf::Vector2u* windowSize)
 {
 	this->windowSize = windowSize;
 }
@@ -35,10 +35,10 @@ void Player::update(float dt)
 {
 	delta.x = dt * speed * direction.x;
 	delta.y = dt * speed * direction.y;
-	if (getPosition().x + delta.x > windowSize.x - getSize().x) {
+	if (getPosition().x + delta.x > windowSize->x - getSize().x) {
 		delta.x = 0.0f;
 	}
-	if (getPosition().y + delta.y > windowSize.y - getSize().y) {
+	if (getPosition().y + delta.y > windowSize->y - getSize().y) {
 		delta.y = 0.0f;
 	}
 	if (getPosition().x + delta.x < 0) {

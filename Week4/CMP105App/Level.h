@@ -20,7 +20,7 @@ public:
 	void update(float dt);
 	void render();
 
-	sf::Vector2u windowSize;
+	sf::Vector2u windowBoundaries;
 
 private:
 	// Default functions for rendering to the screen.
@@ -38,7 +38,7 @@ private:
 	GameObject* ball;
 	GameObject* cursor;
 	GameObject* background;
-	sf::View* view;
+	sf::View view;
 	sf::Texture texture;
 	sf::Texture texture2;
 	sf::Texture texture3;
