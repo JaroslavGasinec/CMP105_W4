@@ -2,7 +2,7 @@
 
 Cursor::Cursor(sf::Vector2u windowSize)
 {
-	texture.loadFromFile("gfx/icon.png");
+	texture.loadFromFile("gfx/cursor.png");
 	setTexture(&texture);
 	this->windowSize = windowSize;
 }
