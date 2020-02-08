@@ -5,11 +5,12 @@ class Enemy :
 {
 	sf::Vector2i direction = sf::Vector2i(1, 1);
 	sf::Vector2f delta;
-	sf::Vector2u* windowSize;
+	sf::Vector2u* windowEnd;
+	sf::Vector2u* windowStart;
 	float speed = 200;
 
 public:
-	Enemy(sf::Vector2u* windowSize);
+	Enemy(sf::Vector2u* windowStart, sf::Vector2u* windowEnd);
 	void update(float dt) override;
 };
 

@@ -1,8 +1,9 @@
 #include "Player.h"
 
-Player::Player(sf::Vector2u* windowSize)
+Player::Player(sf::Vector2u* windowStart, sf::Vector2u* windowEnd)
 {
-	this->windowSize = windowSize;
+	this->windowEnd = windowEnd;
+	this->windowStart = windowStart;
 }
 
 void Player::handleInput(float dt)
@@ -35,18 +36,22 @@ void Player::update(float dt)
 {
 	delta.x = dt * speed * direction.x;
 	delta.y = dt * speed * direction.y;
-	if (getPosition().x + delta.x > windowSize->x - getSize().x) {
+	if (getPosition().x + delta.x > windowEnd->x - getSize().x) {
 		delta.x = 0.0f;
+		setPosition(windowEnd->x - getSize().x, getPosition().y);
 	}
-	if (getPosition().y + delta.y > windowSize->y - getSize().y) {
+	if (getPosition().y + delta.y > windowEnd->y - getSize().y) {
 		delta.y = 0.0f;
+		setPosition(getPosition().x, windowEnd->y - getSize().y);
 	}
-	if (getPosition().x + delta.x < 0) {
+	if (getPosition().x + delta.x < windowStart->x) {
 		delta.x = 0.0f;
+		setPosition(windowStart->x,getPosition().y);
 	}
-	if (getPosition().y + delta.y < 0) {
+	if (getPosition().y + delta.y < windowStart->y) {
 		delta.y = 0.0f;
+		setPosition(getPosition().x, windowStart->y);
 	}
-	this->setPosition(this->getPosition().x + delta.x, this->getPosition().y + delta.y);
+	setPosition(getPosition().x + delta.x,getPosition().y + delta.y);
 	direction = sf::Vector2i(0,0);
 }

@@ -19,9 +19,10 @@ public:
 	void handleInput(float dt);
 	void update(float dt);
 	void render();
+	void handleView(int direction, float dt);
 
-	sf::Vector2u windowBoundaries;
-
+	sf::Vector2u windowEnd;
+	sf::Vector2u windowStart = sf::Vector2u(0,0);
 private:
 	// Default functions for rendering to the screen.
 	void beginDraw();

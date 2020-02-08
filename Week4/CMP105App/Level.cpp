@@ -4,11 +4,12 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
 	input = in;
-	windowBoundaries = window->getSize();
-	testSprite = new Player(&windowBoundaries);
-	goomba = new Enemy(&windowBoundaries);
-	ball = new Enemy(&windowBoundaries);
-	cursor = new Cursor(&windowBoundaries);
+	windowEnd = window->getSize();
+	windowStart = sf::Vector2u(0,0);
+	testSprite = new Player(&windowStart,&windowEnd);
+	goomba = new Enemy(&windowStart, &windowEnd);
+	ball = new Enemy(&windowStart, &windowEnd);
+	cursor = new Cursor(&windowStart, &windowEnd);
 	
 
 	testSprite->setInput(in);
@@ -51,13 +52,16 @@ void Level::handleInput(float dt)
 		window->close();
 	}
 	
-	if (input->isKeyDown(sf::Keyboard::X)) 
+	if (input->isKeyDown(sf::Keyboard::D)) 
 	{
-		view = window->getView();
-		view.move(scrollSpeed * dt, 0);
-		window->setView(view);
+		handleView(1, dt);
+		input->setKeyUp(sf::Keyboard::D);
+	}
 
-		input->setKeyUp(sf::Keyboard::X);
+	if (input->isKeyDown(sf::Keyboard::A))
+	{
+		handleView(-1, dt);
+		input->setKeyUp(sf::Keyboard::A);
 	}
 
 	testSprite->handleInput(dt);
@@ -66,7 +70,7 @@ void Level::handleInput(float dt)
 // Update game objects
 void Level::update(float dt)
 {
-	windowBoundaries = sf::Vector2u (view.getCenter().x - (window->getSize().x/2), view.getCenter().y - (window->getSize().y/2));
+	
 	testSprite->update(dt);
 	goomba->update(dt);
 	ball->update(dt);
@@ -86,6 +90,20 @@ void Level::render()
 	window->draw(*cursor);
 
 	endDraw();
+}
+
+void Level::handleView(int direction, float dt)
+{
+	float deltaX = scrollSpeed * dt * direction;
+	if (windowEnd.x + deltaX <= background->getSize().x && windowStart.x + deltaX >= 0 ) {
+		view = window->getView();
+		view.move(deltaX, 0);
+		window->setView(view);
+
+		windowEnd = sf::Vector2u(view.getCenter().x + (window->getSize().x / 2), view.getCenter().y + (window->getSize().y / 2));
+		windowStart = sf::Vector2u(view.getCenter().x - (window->getSize().x / 2), view.getCenter().y - (window->getSize().y / 2));
+	}
+
 }
 
 // clear back buffer
